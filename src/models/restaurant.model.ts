@@ -1,9 +1,8 @@
 import mongoose, { Schema, Document, Types } from 'mongoose'
-import { IChef } from './chef.model'
 
 export interface IRestaurant extends Document {
   name: string
-  chef: Types.ObjectId | IChef
+  chef: Types.ObjectId
   image: string
   rating: number
   dishes: Types.ObjectId[]

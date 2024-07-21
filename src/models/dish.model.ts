@@ -1,13 +1,14 @@
 import { Document, Schema, Types, model } from "mongoose"
-import { IRestaurant } from "./restaurant.model"
 
 export interface IDish extends Document {
     title: string
     image: string
     ingredients: string[]
     price: number
-    restaurant: Types.ObjectId | IRestaurant
+    restaurant: Types.ObjectId
     icons: { type: string, img: string }[]
+    isActive: boolean
+
 }
 
 const dishSchema = new Schema<IDish>({
@@ -19,7 +20,8 @@ const dishSchema = new Schema<IDish>({
     icons: [{
         type: { type: String, required: true },
         img: { type: String, required: true }
-    }]
+    }],
+    isActive: { type: Boolean, default: true }
 })
 
 const Dish = model<IDish>('Dish', dishSchema)
