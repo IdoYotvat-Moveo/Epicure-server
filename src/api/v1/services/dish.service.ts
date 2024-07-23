@@ -1,14 +1,18 @@
+import { Types } from "mongoose";
 import { Dish, IDish } from "../../../models/dish.model"
 import { Restaurant } from "../../../models/restaurant.model"
 
 //CRUD
 
-//todo ask populate??
-const getAllDishes = async () => {
+const getAllDishesFromRestaurant = async (restaurantId: string) => {
     try {
-        return await Dish.find()
+        if (!Types.ObjectId.isValid(restaurantId)) {
+            throw new Error('Invalid restaurant ID')
+        }
+        return await Dish.find({ restaurant: restaurantId })
     } catch (err) {
-        console.log('dish service => error getting all dishes')
+        console.error('dish service => error getting dishes from restaurant', err);
+        throw err
     }
 }
 
@@ -35,7 +39,7 @@ const updateDish = async (dishId: String, updateData: Partial<IDish>) => {
     try {
         return Dish.findByIdAndUpdate(dishId, updateData, { new: true, runValidators: true })
     } catch (err) {
-        console.log('dish service => error updating dishe')
+        console.log('dish service => error updating dish')
     }
 }
 
@@ -48,7 +52,7 @@ const removeDish = async (dishId: string) => {
 }
 
 export const dishService = {
-    getAllDishes,
+    getAllDishesFromRestaurant,
     getDishById,
     addDish,
     updateDish,

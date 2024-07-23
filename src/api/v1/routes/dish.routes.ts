@@ -7,7 +7,7 @@ dishRouter.get('/', dishController.getDishes)
 dishRouter.get('/:id', dishController.getDishById)
 dishRouter.post('/', dishController.addDish)
 dishRouter.put('/:id', dishController.updateDish)
-dishRouter.delete('/', dishController.removeDish)
+dishRouter.delete('/:id', dishController.removeDish)
 
 
 export default dishRouter

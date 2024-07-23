@@ -7,7 +7,7 @@ restaurantRouter.get('/', restaurantController.getRestaurants)
 restaurantRouter.get('/:id', restaurantController.getResaurantById)
 restaurantRouter.post('/', restaurantController.addRestaurant)
 restaurantRouter.put('/:id', restaurantController.updateRestaurant)
-restaurantRouter.delete('/', restaurantController.removeRestaurant)
+restaurantRouter.delete('/:id', restaurantController.removeRestaurant)
 
 
 export default restaurantRouter

@@ -4,7 +4,7 @@ import { dishService } from "../services/dish.service";
 
 export const getDishes = async (req: Request, res: Response) => {
     try {
-        const dish = await dishService.getAllDishes()
+        const dish = await dishService.getAllDishesFromRestaurant(req.params.id)
         res.send(dish)
     } catch (err) {
         res.status(500).send(err)

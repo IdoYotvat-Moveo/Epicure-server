@@ -2,7 +2,7 @@ import { Chef } from "../../../models/chef.model"
 import { IRestaurant, Restaurant } from "../../../models/restaurant.model"
 
 //CRUD
-//todo ask populate????
+
  const getAllRestaurants = async () => {
     try{
         return await Restaurant.find()
