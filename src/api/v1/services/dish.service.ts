@@ -21,19 +21,24 @@ const getDishById = async (dishId: string) => {
     try {
         return await Dish.findById(dishId)
     } catch (err) {
-        console.log('dish service => error getting dish by id',err)
+        console.log('dish service => error getting dish by id', err)
         throw err
     }
 }
 
 const addDish = async (dishData: Partial<IDish>) => {
     try {
+        const restaurant = await Restaurant.findById(dishData.restaurant)
+        //validation
+        if (!restaurant) {
+            throw new Error(`Restaurant with ID ${dishData.restaurant} does not exist`)
+        }
         const dish = new Dish(dishData)
         const savedDish = await dish.save()
         await Restaurant.findByIdAndUpdate(dishData.restaurant, { $push: { dishes: savedDish._id } })
         return savedDish
     } catch (err) {
-        console.log('dish service => error adding dish',err)
+        console.log('dish service => error adding dish', err)
         throw err
     }
 }
@@ -62,7 +67,6 @@ const removeDish = async (dishId: string) => {
         throw err
     }
 }
-
 
 export const dishService = {
     getAllDishesFromRestaurant,
