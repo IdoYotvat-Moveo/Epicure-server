@@ -12,6 +12,20 @@ const getAllRestaurants = async () => {
     }
 }
 
+const getPopularRestaurants = async () => {
+    try {
+        const popularRestaurants = await Restaurant.find({ isPopular: true })
+        if (!popularRestaurants.length) {
+            throw new Error('No popular restaurants found')
+        }
+        return popularRestaurants
+    } catch (err) {
+        console.log('restaurant service => error getting popular restaurants')
+        console.error(err);
+        throw err;
+    }
+}
+
 const getRestaurantbyId = async (restaurantId: string) => {
     try {
         return await Restaurant.findById(restaurantId)
@@ -65,6 +79,7 @@ const removeRestaurant = async (restaurantId: string) => {
 
 export const restaurantService = {
     getAllRestaurants,
+    getPopularRestaurants,
     getRestaurantbyId,
     addRestaurant,
     updateRestaurant,

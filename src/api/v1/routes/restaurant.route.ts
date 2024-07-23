@@ -4,6 +4,7 @@ import * as restaurantController from '../controllers/restaurant.controller'
 const restaurantRouter = Router()
 
 restaurantRouter.get('/', restaurantController.getRestaurants)
+restaurantRouter.get('/popular', restaurantController.getPopularRestaurants)
 restaurantRouter.get('/:id', restaurantController.getResaurantById)
 restaurantRouter.post('/', restaurantController.addRestaurant)
 restaurantRouter.put('/:id', restaurantController.updateRestaurant)

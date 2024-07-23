@@ -30,8 +30,8 @@ const getChefOfTheWeek = async () => {
         return chef
     } catch (err) {
         console.log('chef service => error getting chef of the week')
-        console.error(err);
-        throw err;
+        console.error(err)
+        throw err
     }
 }
 

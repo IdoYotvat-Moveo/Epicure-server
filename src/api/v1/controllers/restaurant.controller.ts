@@ -11,6 +11,15 @@ export const getRestaurants = async (req: Request, res: Response) => {
     }
 }
 
+export const getPopularRestaurants = async (req: Request, res: Response) => {
+    try {
+        const popularRestaurant = await restaurantService.getPopularRestaurants()
+        res.send(popularRestaurant)
+    } catch (err) {
+        res.status(500).send(err)
+    }
+}
+
 export const getResaurantById = async (req: Request, res: Response) => {
     try {
         const restaurant = await restaurantService.getRestaurantbyId(req.params.id)
