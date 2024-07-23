@@ -20,6 +20,15 @@ export const getChefByid = async (req: Request, res: Response) => {
         res.status(500).send(err)
     }
 }
+export const getChefOfTheWeek = async (req: Request, res: Response) => {
+    try {
+        const chef = await chefService.getChefOfTheWeek()
+        if (!chef) return res.status(404).send('Chef of the week not found')
+        res.send(chef)
+    } catch (err) {
+        res.status(500).send(err)
+    }
+}
 
 export const addChef = async (req: Request, res: Response) => {
     try {

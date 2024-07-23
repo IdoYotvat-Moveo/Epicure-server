@@ -6,6 +6,7 @@ const chefsRouter = Router()
 
 
 chefsRouter.get('/', chefController.getChefs)
+chefsRouter.get('/chefoftheweek', chefController.getChefOfTheWeek)
 chefsRouter.get('/:id', chefController.getChefByid)
 chefsRouter.post('/', chefController.addChef)
 chefsRouter.put('/:id', chefController.updateChef)

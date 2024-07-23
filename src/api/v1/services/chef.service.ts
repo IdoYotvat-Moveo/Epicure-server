@@ -21,6 +21,20 @@ const getChefByid = async (chefId: string) => {
     }
 }
 
+const getChefOfTheWeek = async () => {
+    try {
+        const chef = await Chef.findOne({ isChefOfTheWeek: true })
+        if (!chef) {
+            throw new Error('No chef found with isChefOfTheWeek set to true')
+        }
+        return chef
+    } catch (err) {
+        console.log('chef service => error getting chef of the week')
+        console.error(err);
+        throw err;
+    }
+}
+
 const addChef = async (chefData: Partial<IChef>) => {
     try{
         const chef = new Chef(chefData)
@@ -58,6 +72,7 @@ const removeChef = async (chefId: string) => {
 export const chefService = {
     getAllChefs,
     getChefByid,
+    getChefOfTheWeek,
     addChef,
     updateChef,
     removeChef
