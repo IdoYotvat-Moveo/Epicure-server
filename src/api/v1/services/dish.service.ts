@@ -1,4 +1,5 @@
-import { Dish } from "../../../models/dish.model"
+import { Dish, IDish } from "../../../models/dish.model"
+import { Restaurant } from "../../../models/restaurant.model"
 
 //CRUD
 
@@ -19,16 +20,18 @@ const getDishById = async (dishId: string) => {
     }
 }
 
-const addDish = async (dishData: typeof Dish) => {
+const addDish = async (dishData: Partial<IDish>) => {
     try {
         const dish = new Dish(dishData)
-        return await dish.save()
+        const savedDish = await dish.save()
+        await Restaurant.findByIdAndUpdate(dishData.restaurant, { $push: { dishes: savedDish._id } })
+        return savedDish
     } catch (err) {
         console.log('dish service => error adding dish')
     }
 }
 
-const updateDish = async (dishId: String, updateData: typeof Dish) => {
+const updateDish = async (dishId: String, updateData: Partial<IDish>) => {
     try {
         return Dish.findByIdAndUpdate(dishId, updateData, { new: true, runValidators: true })
     } catch (err) {

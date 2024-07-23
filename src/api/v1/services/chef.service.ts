@@ -1,4 +1,4 @@
-import { Chef } from "../../../models/chef.model"
+import { Chef, IChef } from "../../../models/chef.model"
 
 //CRUD
 
@@ -18,7 +18,7 @@ const getChefByid = async (chefId: string) => {
     }
 }
 
-const addChef = async (chefData: typeof Chef) => {
+const addChef = async (chefData: Partial<IChef>) => {
     try{
         const chef = new Chef(chefData)
         return await chef.save()
@@ -27,7 +27,7 @@ const addChef = async (chefData: typeof Chef) => {
     }
 }
 
-const updateChef = async (chefId: string, updateData: typeof Chef) => {
+const updateChef = async (chefId: string, updateData: Partial<IChef>) => {
     try{
         return Chef.findByIdAndUpdate(chefId, updateData, { new: true, runValidators: true })
     } catch(err) {

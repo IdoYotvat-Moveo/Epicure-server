@@ -1,4 +1,5 @@
-import { Restaurant } from "../../../models/restaurant.model"
+import { Chef } from "../../../models/chef.model"
+import { IRestaurant, Restaurant } from "../../../models/restaurant.model"
 
 //CRUD
 //todo ask populate????
@@ -18,16 +19,18 @@ import { Restaurant } from "../../../models/restaurant.model"
     }
 }
 
- const addRestaurant = async (restaurantData: typeof Restaurant) => {
+ const addRestaurant = async (restaurantData: Partial<IRestaurant>) => {
     try{
         const restaurant = new Restaurant(restaurantData)
-        return await restaurant.save()
+        const savedRestaurant = await restaurant.save()
+        await Chef.findByIdAndUpdate(restaurantData.chef, { $push: { restaurants: savedRestaurant._id } })
+        return savedRestaurant
     } catch(err) {
         console.log('restaurant service => error adding a restaurant')
     }
 }
 
- const updateRestaurant = async (restaurantId: string, updateData: typeof Restaurant) => {
+ const updateRestaurant = async (restaurantId: string, updateData: Partial<IRestaurant>) => {
     try{
         return await Restaurant.findByIdAndUpdate(restaurantId, updateData, { new: true, runValidators: true })
     } catch(err) {
