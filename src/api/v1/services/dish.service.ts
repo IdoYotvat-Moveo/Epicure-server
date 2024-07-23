@@ -9,7 +9,7 @@ const getAllDishesFromRestaurant = async (restaurantId: string) => {
         if (!Types.ObjectId.isValid(restaurantId)) {
             throw new Error('Invalid restaurant ID')
         }
-        return await Dish.find({ restaurant: restaurantId })
+        return await Dish.find({ restaurant: restaurantId, isActive: true })
     } catch (err) {
         console.error('dish service => error getting dishes from restaurant', err);
         throw err
