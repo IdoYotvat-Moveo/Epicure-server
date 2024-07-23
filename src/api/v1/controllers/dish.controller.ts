@@ -13,7 +13,7 @@ export const getDishes = async (req: Request, res: Response) => {
 
 export const getDishById = async (req: Request, res: Response) => {
     try {
-        const dish = await dishService.getDishById(req.params.Id)
+        const dish = await dishService.getDishById(req.params.id)
         if (!dish) return res.status(404).send('Dish not found')
         res.send(dish)
     } catch (err) {

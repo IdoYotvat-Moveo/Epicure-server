@@ -13,7 +13,7 @@ export const getRestaurants = async (req: Request, res: Response) => {
 
 export const getResaurantById = async (req: Request, res: Response) => {
     try {
-        const restaurant = await restaurantService.getRestaurantbyId(req.params.Id)
+        const restaurant = await restaurantService.getRestaurantbyId(req.params.id)
         if (!restaurant) return res.status(404).send('Restaurant not found')
         res.send(restaurant)
     } catch (err) {

@@ -1,4 +1,5 @@
 import { Chef, IChef } from "../../../models/chef.model"
+import { Restaurant } from "../../../models/restaurant.model"
 
 //CRUD
 
@@ -40,10 +41,15 @@ const updateChef = async (chefId: string, updateData: Partial<IChef>) => {
 }
 
 const removeChef = async (chefId: string) => {
-    try{
-        return await Chef.findByIdAndDelete(chefId)
-    } catch(err) {
-        console.log('chef service => error removing chef')
+    try {
+        const deletedChef = await Chef.findByIdAndDelete(chefId)
+        if (!deletedChef) {
+            throw new Error('Chef not found')
+        }
+        await Restaurant.updateOne({ chef: chefId }, { $set: { chef: null } })
+        return deletedChef
+    } catch (err) {
+        console.log('chef service => error removing chef', err)
         throw err
     }
 }

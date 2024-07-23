@@ -1,4 +1,5 @@
 import { Document, Schema, Types, model } from "mongoose"
+import { EiconMeaning } from "../api/v1/enum/icon"
 
 export interface IDish extends Document {
     title: string
@@ -6,21 +7,17 @@ export interface IDish extends Document {
     ingredients: string[]
     price: number
     restaurant: Types.ObjectId
-    icons: { type: string, img: string }[]
+    icons: EiconMeaning[] | null
     isActive: boolean
-
 }
 
 const dishSchema = new Schema<IDish>({
     title: { type: String, required: true },
-    image: { type: String, required: true },
+    image: { type: String},
     ingredients: { type: [String], required: true },
     price: { type: Number, required: true },
     restaurant: { type: Schema.Types.ObjectId, ref: 'Restaurant', required: true },
-    icons: [{
-        type: { type: String, required: true },
-        img: { type: String, required: true }
-    }],
+    icons: [{ type: String, enum: Object.values(EiconMeaning), default: null }],
     isActive: { type: Boolean, default: true }
 })
 

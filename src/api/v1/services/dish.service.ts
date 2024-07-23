@@ -17,10 +17,11 @@ const getAllDishesFromRestaurant = async (restaurantId: string) => {
 }
 
 const getDishById = async (dishId: string) => {
+    console.log(dishId)
     try {
         return await Dish.findById(dishId)
     } catch (err) {
-        console.log('dish service => error getting dish by id')
+        console.log('dish service => error getting dish by id',err)
         throw err
     }
 }
@@ -32,7 +33,7 @@ const addDish = async (dishData: Partial<IDish>) => {
         await Restaurant.findByIdAndUpdate(dishData.restaurant, { $push: { dishes: savedDish._id } })
         return savedDish
     } catch (err) {
-        console.log('dish service => error adding dish')
+        console.log('dish service => error adding dish',err)
         throw err
     }
 }
@@ -48,12 +49,20 @@ const updateDish = async (dishId: String, updateData: Partial<IDish>) => {
 
 const removeDish = async (dishId: string) => {
     try {
+        const dish = await Dish.findById(dishId)
+        if (!dish) {
+            throw new Error('Dish not found')
+        }
+        if (dish.restaurant) {
+            await Restaurant.findByIdAndUpdate(dish.restaurant, { $pull: { dishes: dishId } })
+        }
         return await Dish.findByIdAndDelete(dishId)
     } catch (err) {
-        console.log('dish service => error removing dish')
+        console.log('dish service => error removing dish', err)
         throw err
     }
 }
+
 
 export const dishService = {
     getAllDishesFromRestaurant,
