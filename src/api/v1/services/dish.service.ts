@@ -20,7 +20,8 @@ const getDishById = async (dishId: string) => {
     try {
         return await Dish.findById(dishId)
     } catch (err) {
-        console.log('dish service => error getting dishe by id')
+        console.log('dish service => error getting dish by id')
+        throw err
     }
 }
 
@@ -32,6 +33,7 @@ const addDish = async (dishData: Partial<IDish>) => {
         return savedDish
     } catch (err) {
         console.log('dish service => error adding dish')
+        throw err
     }
 }
 
@@ -40,6 +42,7 @@ const updateDish = async (dishId: String, updateData: Partial<IDish>) => {
         return Dish.findByIdAndUpdate(dishId, updateData, { new: true, runValidators: true })
     } catch (err) {
         console.log('dish service => error updating dish')
+        throw err
     }
 }
 
@@ -48,6 +51,7 @@ const removeDish = async (dishId: string) => {
         return await Dish.findByIdAndDelete(dishId)
     } catch (err) {
         console.log('dish service => error removing dish')
+        throw err
     }
 }
 

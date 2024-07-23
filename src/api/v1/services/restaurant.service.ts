@@ -8,6 +8,7 @@ const getAllRestaurants = async () => {
         return await Restaurant.find()
     } catch (err) {
         console.log('restaurant service => error getting all restaurant')
+        throw err
     }
 }
 
@@ -16,6 +17,7 @@ const getRestaurantbyId = async (restaurantId: string) => {
         return await Restaurant.findById(restaurantId)
     } catch (err) {
         console.log('restaurant service => error getting restaurant by Id')
+        throw err
     }
 }
 
@@ -29,6 +31,7 @@ const addRestaurant = async (restaurantData: Partial<IRestaurant>) => {
         return savedRestaurant
     } catch (err) {
         console.log('restaurant service => error adding a restaurant')
+        throw err
     }
 }
 
@@ -37,6 +40,7 @@ const updateRestaurant = async (restaurantId: string, updateData: Partial<IResta
         return await Restaurant.findByIdAndUpdate(restaurantId, updateData, { new: true, runValidators: true })
     } catch (err) {
         console.log('restaurant service => error updating a restaurant')
+        throw err
     }
 }
 
@@ -45,6 +49,7 @@ const removeRestaurant = async (restaurantId: string) => {
         return await Restaurant.findByIdAndDelete(restaurantId)
     } catch (err) {
         console.log('restaurant service => error removing a restaurant')
+        throw err
     }
 }
 

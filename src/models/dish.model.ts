@@ -2,7 +2,7 @@ import { Document, Schema, Types, model } from "mongoose"
 
 export interface IDish extends Document {
     title: string
-    image: string
+    image?: string
     ingredients: string[]
     price: number
     restaurant: Types.ObjectId
