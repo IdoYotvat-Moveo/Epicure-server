@@ -14,7 +14,7 @@ const getAllRestaurants = async () => {
 
 const getPopularRestaurants = async () => {
     try {
-        const popularRestaurants = await Restaurant.find({ isPopular: true })
+        const popularRestaurants = await Restaurant.find({ isPopular: true }).populate('chef')
         if (!popularRestaurants.length) {
             throw new Error('No popular restaurants found')
         }

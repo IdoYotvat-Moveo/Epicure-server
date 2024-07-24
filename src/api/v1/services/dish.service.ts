@@ -43,6 +43,20 @@ const addDish = async (dishData: Partial<IDish>) => {
     }
 }
 
+const getSignatureDish = async () => {
+    try {
+        const restaurants = await Restaurant.find().populate('signatureDish')
+        const signatureDishes = restaurants
+            .filter(restaurant => restaurant.signatureDish)
+            .map(restaurant => restaurant.signatureDish)
+        return signatureDishes
+    } catch (err) {
+        console.error('dish service => error getting signature dish', err)
+        throw err
+    }
+}
+
+
 const updateDish = async (dishId: String, updateData: Partial<IDish>) => {
     try {
         return Dish.findByIdAndUpdate(dishId, updateData, { new: true, runValidators: true })
@@ -71,6 +85,7 @@ const removeDish = async (dishId: string) => {
 export const dishService = {
     getAllDishesFromRestaurant,
     getDishById,
+    getSignatureDish,
     addDish,
     updateDish,
     removeDish

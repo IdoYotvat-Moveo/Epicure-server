@@ -1,5 +1,4 @@
 import mongoose, { Schema, Document, Types } from 'mongoose'
-import { IDish } from './dish.model'
 
 export interface IRestaurant extends Document {
   name: string
@@ -7,7 +6,7 @@ export interface IRestaurant extends Document {
   image: string
   rating: number
   dishes: Types.ObjectId[]
-  signatureDish?: IDish
+  signatureDish?: Types.ObjectId
   isPopular?: boolean
 }
 

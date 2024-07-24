@@ -23,7 +23,7 @@ const getChefByid = async (chefId: string) => {
 
 const getChefOfTheWeek = async () => {
     try {
-        const chef = await Chef.findOne({ isChefOfTheWeek: true })
+        const chef = await Chef.findOne({ isChefOfTheWeek: true }).populate('restaurants')
         if (!chef) {
             throw new Error('No chef found with isChefOfTheWeek set to true')
         }
