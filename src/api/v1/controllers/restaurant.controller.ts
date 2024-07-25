@@ -7,7 +7,7 @@ export const getRestaurants = async (req: Request, res: Response) => {
         const restaurant = await restaurantService.getAllRestaurants()
         res.send(restaurant)
     } catch (err) {
-        res.status(500).send(err)
+        res.status(400).send(err)
     }
 }
 
@@ -16,7 +16,7 @@ export const getPopularRestaurants = async (req: Request, res: Response) => {
         const popularRestaurant = await restaurantService.getPopularRestaurants()
         res.send(popularRestaurant)
     } catch (err) {
-        res.status(500).send(err)
+        res.status(400).send(err)
     }
 }
 
@@ -26,7 +26,7 @@ export const getResaurantById = async (req: Request, res: Response) => {
         if (!restaurant) return res.status(404).send('Restaurant not found')
         res.send(restaurant)
     } catch (err) {
-        res.status(500)
+        res.status(400)
     }
 }
 
@@ -55,6 +55,6 @@ export const removeRestaurant = async (req: Request, res: Response) => {
         if (!restaurant) return res.status(404).send('Restaurant not found')
         res.send(restaurant)
     } catch (err) {
-        res.status(500).send(err)
+        res.status(400).send(err)
     }
 }
