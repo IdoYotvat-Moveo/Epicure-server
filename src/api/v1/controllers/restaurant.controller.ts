@@ -32,6 +32,7 @@ export const getResaurantById = async (req: Request, res: Response) => {
 
 export const addRestaurant = async (req: Request, res: Response) => {
     try {
+        console.log(req.body)
         const restaurant = await restaurantService.addRestaurant(req.body)
         res.status(201).send(restaurant)
     } catch (err) {

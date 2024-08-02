@@ -5,7 +5,15 @@ import { IRestaurant, Restaurant } from "../../../models/restaurant.model"
 
 const getAllRestaurants = async () => {
     try {
-        return await Restaurant.find()
+        const restaurants = await Restaurant.find()
+            .populate('chef', 'name')
+            .populate('dishes', 'title')
+            .populate('signatureDish', 'title')
+            .lean()
+        return restaurants.map(restaurant => {
+            delete restaurant.__v
+            return restaurant
+        })
     } catch (err) {
         console.log('restaurant service => error getting all restaurant')
         throw err
@@ -18,17 +26,27 @@ const getPopularRestaurants = async () => {
         if (!popularRestaurants.length) {
             throw new Error('No popular restaurants found')
         }
-        return popularRestaurants
+        return popularRestaurants.map(restaurant => {
+            const restaurantObj = restaurant.toObject()
+            delete restaurantObj.__v
+            return restaurantObj
+        })
     } catch (err) {
         console.log('restaurant service => error getting popular restaurants')
-        console.error(err);
-        throw err;
+        console.error(err)
+        throw err
     }
 }
 
 const getRestaurantbyId = async (restaurantId: string) => {
     try {
-        return await Restaurant.findById(restaurantId)
+        const restaurant = await Restaurant.findById(restaurantId)
+        if (!restaurant) {
+            throw new Error('Restaurant not found')
+        }
+        const restaurantObj = restaurant.toObject()
+        delete restaurantObj.__v
+        return restaurantObj
     } catch (err) {
         console.log('restaurant service => error getting restaurant by Id')
         throw err
@@ -42,9 +60,11 @@ const addRestaurant = async (restaurantData: Partial<IRestaurant>) => {
         if (restaurantData.chef) {
             await Chef.findByIdAndUpdate(restaurantData.chef, { $push: { restaurants: savedRestaurant._id } })
         }
-        return savedRestaurant
+        const restaurantObj = savedRestaurant.toObject()
+        delete restaurantObj.__v
+        return restaurantObj
     } catch (err) {
-        console.log('restaurant service => error adding a restaurant')
+        console.log('restaurant service => error adding a restaurant', err)
         throw err
     }
 }
@@ -54,7 +74,13 @@ const updateRestaurant = async (restaurantId: string, updateData: Partial<IResta
         if (updateData.chef) {
             await Chef.findByIdAndUpdate(updateData.chef, { $push: { restaurants: restaurantId } })
         }
-        return await Restaurant.findByIdAndUpdate(restaurantId, updateData, { new: true, runValidators: true })
+        const updatedRestaurant = await Restaurant.findByIdAndUpdate(restaurantId, updateData, { new: true, runValidators: true })
+        if (!updatedRestaurant) {
+            throw new Error('Restaurant not found')
+        }
+        const restaurantObj = updatedRestaurant.toObject()
+        delete restaurantObj.__v
+        return restaurantObj
     } catch (err) {
         console.log('restaurant service => error updating a restaurant')
         throw err

@@ -9,9 +9,27 @@ const getAllDishesFromRestaurant = async (restaurantId: string) => {
         if (!Types.ObjectId.isValid(restaurantId)) {
             throw new Error('Invalid restaurant ID')
         }
-        return await Dish.find({ restaurant: restaurantId, isActive: true })
+        const dishes = await Dish.find({ restaurant: restaurantId, isActive: true })
+        return dishes.map(dish => {
+            const dishObj = dish.toObject()
+            delete dishObj.__v
+            return dishObj
+        })
     } catch (err) {
-        console.error('dish service => error getting dishes from restaurant', err);
+        console.error('dish service => error getting dishes from restaurant', err)
+        throw err
+    }
+}
+
+const getAllDishes = async () => {
+    try {
+        const dishes = await Dish.find().populate('restaurant', 'name').lean()
+        return dishes.map(dish => {
+            delete dish.__v
+            return dish
+        })
+    } catch (err) {
+        console.error('dish service => error getting dishes from restaurant', err)
         throw err
     }
 }
@@ -83,6 +101,7 @@ const removeDish = async (dishId: string) => {
 }
 
 export const dishService = {
+    getAllDishes,
     getAllDishesFromRestaurant,
     getDishById,
     getSignatureDish,

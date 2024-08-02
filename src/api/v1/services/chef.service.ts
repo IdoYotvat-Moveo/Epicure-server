@@ -5,10 +5,16 @@ import { Restaurant } from "../../../models/restaurant.model"
 
 const getAllChefs = async () => {
     try {
-        return await Chef.find()
+        const chefs = await Chef.find().populate('restaurants', 'name')
+        return chefs.map(chef => {
+            const chefObj = chef.toObject()
+            delete chefObj.__v
+            console.log(chefObj)
+            return chefObj
+        });
     } catch (err) {
-        console.log('chef service => error getting chefs')
-        throw err
+        console.log('chef service => error getting chefs');
+        throw err;
     }
 }
 
@@ -36,19 +42,28 @@ const getChefOfTheWeek = async () => {
 }
 
 const addChef = async (chefData: Partial<IChef>) => {
-    try{
+    try {
         const chef = new Chef(chefData)
-        return await chef.save()
-    } catch(err) {
+        const savedChef = await chef.save()
+        const chefObj = savedChef.toObject()
+        delete chefObj.__v
+        return chefObj
+    } catch (err) {
         console.log('chef service => error adding chef')
-        throw err
+        throw err;
     }
-}
+};
 
 const updateChef = async (chefId: string, updateData: Partial<IChef>) => {
-    try{
-        return Chef.findByIdAndUpdate(chefId, updateData, { new: true, runValidators: true })
-    } catch(err) {
+    try {
+        const updatedChef = await Chef.findByIdAndUpdate(chefId, updateData, { new: true, runValidators: true })
+        if (!updatedChef) {
+            throw new Error('Chef not found')
+        }
+        const chefObj = updatedChef.toObject()
+        delete chefObj.__v
+        return chefObj
+    } catch (err) {
         console.log('chef service => error updating chef')
         throw err
     }

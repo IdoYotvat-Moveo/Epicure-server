@@ -4,7 +4,39 @@ import * as dishController from '../controllers/dish.controller'
 const dishRouter = Router()
 
 /**
- * @api {get} /dishes/restaurant/:id Get all dishes for a restaurant
+ * @api {get} /dish/ Get all dishes
+ * @apiName GetDishes
+ * @apiGroup Dish
+ *
+ *
+ * @apiSuccess {Object[]} dishes List of dishes.
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ *     [
+ *        {
+        "_id": "669f8fdf2225a05cf11edbe4",
+        "title": "Smoked Pizza",
+        "image": "smokedPizza.png",
+        "ingredients": [
+            "basil dough",
+            "cashew \"butter\"",
+            "demi-glace",
+            "bison & radish"
+        ],
+        "price": 65,
+        "restaurant": "669f8fdf2225a05cf11edbdd",
+        "icons": [
+            "vegan"
+        ],
+        "isActive": true,
+        "__v": 0
+    }
+ *     ]
+ */
+dishRouter.get('/', dishController.getAllDishes)
+/**
+ * @api {get} /dish/restaurant/:id Get all dishes for a restaurant
  * @apiName GetDishes
  * @apiGroup Dish
  *
@@ -38,7 +70,7 @@ const dishRouter = Router()
 dishRouter.get('/restaurant/:id', dishController.getDishes)
 
 /**
- * @api {get} /dishes/signature Get signature dish
+ * @api {get} /dish/signature Get signature dish
  * @apiName GetSignatureDish
  * @apiGroup Dish
  *
@@ -68,7 +100,7 @@ dishRouter.get('/restaurant/:id', dishController.getDishes)
 dishRouter.get('/signature', dishController.getSignatureDish)
 
 /**
- * @api {get} /dishes/:id Get dish by ID
+ * @api {get} /dish/:id Get dish by ID
  * @apiName GetDishById
  * @apiGroup Dish
  *
@@ -108,7 +140,7 @@ dishRouter.get('/signature', dishController.getSignatureDish)
 dishRouter.get('/:id', dishController.getDishById)
 
 /**
- * @api {post} /dishes/ Add a new dish
+ * @api {post} /dish/ Add a new dish
  * @apiName AddDish
  * @apiGroup Dish
  *
@@ -147,7 +179,7 @@ dishRouter.get('/:id', dishController.getDishById)
 dishRouter.post('/', dishController.addDish)
 
 /**
- * @api {put} /dishes/:id Update a dish
+ * @api {put} /dish/:id Update a dish
  * @apiName UpdateDish
  * @apiGroup Dish
  *
@@ -180,7 +212,7 @@ dishRouter.post('/', dishController.addDish)
 dishRouter.put('/:id', dishController.updateDish)
 
 /**
- * @api {delete} /dishes/:id Remove a dish
+ * @api {delete} /dish/:id Remove a dish
  * @apiName RemoveDish
  * @apiGroup Dish
  *

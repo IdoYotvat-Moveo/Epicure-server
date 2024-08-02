@@ -2,6 +2,15 @@ import { Request, Response } from "express";
 import { dishService } from "../services/dish.service";
 
 
+export const getAllDishes = async (req: Request, res: Response) => {
+    try {
+        const dishes = await dishService.getAllDishes()
+        res.send(dishes)
+    } catch (err) {
+        res.status(400).send(err)
+    }
+}
+
 export const getDishes = async (req: Request, res: Response) => {
     try {
         const dish = await dishService.getAllDishesFromRestaurant(req.params.id)
