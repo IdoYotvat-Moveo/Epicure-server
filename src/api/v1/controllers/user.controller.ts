@@ -19,3 +19,12 @@ export const addUser = async (req: Request, res: Response) => {
     }
 }
 
+export const login = async (req: Request, res: Response) =>{
+    try{
+       const user = await userService.login(req.body.mail,req.body.password)
+       res.send(user)
+    } catch (err){
+        console.log(err)
+    }
+}
+

@@ -6,6 +6,7 @@ const userRouter = Router()
 
 userRouter.get('/',userController.getUsers)
 userRouter.post('/',userController.addUser)
+userRouter.post('/login',userController.login)
 
 
 
