@@ -31,7 +31,7 @@ const addUser = async (userData: Partial<IUser>) => {
             throw new Error('user aleady exists!')
         }
         if (!userData.password) {
-            throw new Error('Password is required');
+            throw new Error('Password is required')
         }
         const hashedPass = await bcrypt.hash(userData.password, saltRounds)
         userData.password = hashedPass
@@ -53,7 +53,7 @@ const login = async (mail: string, encryptedPassword: string): Promise<ILoginRes
             return null
         }
 
-        const bytes = CryptoJS.AES.decrypt(encryptedPassword, cryptoSecretKey);
+        const bytes = CryptoJS.AES.decrypt(encryptedPassword, cryptoSecretKey)
         const decryptedPassword = bytes.toString(CryptoJS.enc.Utf8)
 
         const isMatch = await bcrypt.compare(decryptedPassword, user.password)

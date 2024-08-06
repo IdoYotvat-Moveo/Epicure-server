@@ -1,6 +1,6 @@
-import { Router } from "express";
+import { Router } from "express"
 import * as chefController from '../controllers/chef.controller'
-import authMiddleware from "../middlware/auth";
+import authMiddleware from "../middlware/auth"
 
 const chefsRouter = Router()
 

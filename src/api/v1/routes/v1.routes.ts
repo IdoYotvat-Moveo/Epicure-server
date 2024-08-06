@@ -1,8 +1,8 @@
-import { Router } from "express";
-import chefsRouter from "./chef.routes";
-import dishRouter from "./dish.routes";
-import restaurantRouter from "./restaurant.route";
-import userRouter from "./user.routes";
+import { Router } from "express"
+import chefsRouter from "./chef.routes"
+import dishRouter from "./dish.routes"
+import restaurantRouter from "./restaurant.route"
+import userRouter from "./user.routes"
 
 const v1Router = Router()
 

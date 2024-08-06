@@ -1,6 +1,6 @@
-import { Router } from "express";
+import { Router } from "express"
 import * as dishController from '../controllers/dish.controller'
-import authMiddleware from "../middlware/auth";
+import authMiddleware from "../middlware/auth"
 
 const dishRouter = Router()
 

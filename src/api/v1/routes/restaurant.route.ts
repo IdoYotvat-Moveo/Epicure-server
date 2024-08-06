@@ -1,6 +1,6 @@
-import { Router } from "express";
+import { Router } from "express"
 import * as restaurantController from '../controllers/restaurant.controller'
-import authMiddleware from "../middlware/auth";
+import authMiddleware from "../middlware/auth"
 
 const restaurantRouter = Router()
 

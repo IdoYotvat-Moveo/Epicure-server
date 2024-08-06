@@ -26,16 +26,16 @@ if (process.env.NODE_ENV === 'production') {
       'http://localhost:5174',
     ],
     credentials: true,
-  };
+  }
   app.use(cors(corsOptions))
 }
 // app.get('/**', (req: Request, res: Response) => {
 //   res.sendFile(path.resolve('public/index.html'))
-// });
+// })
 
 app.use('/api',apiRouter)
 
-const port = process.env.PORT || 3030;
+const port = process.env.PORT || 3030
 mongoose.connect('mongodb://localhost:27017/Epicure').then(() => {
   console.log('db connected')
   server.listen(port, () => {
