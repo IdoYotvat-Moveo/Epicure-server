@@ -59,7 +59,7 @@ const login = async (mail: string, encryptedPassword: string): Promise<ILoginRes
         const isMatch = await bcrypt.compare(decryptedPassword, user.password)
 
         if (isMatch) {
-            const token = jwt.sign({ id: user._id }, secretKey)
+            const token = jwt.sign({ id: user._id, name: user.name, role: user.role }, secretKey)
             return { user, token }
         } else {
             console.error("Password does not match for user:", mail)

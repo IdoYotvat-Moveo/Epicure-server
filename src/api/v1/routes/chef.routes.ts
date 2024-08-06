@@ -1,5 +1,6 @@
 import { Router } from "express";
 import * as chefController from '../controllers/chef.controller'
+import authMiddleware from "../middlware/auth";
 
 const chefsRouter = Router()
 
@@ -27,6 +28,7 @@ const chefsRouter = Router()
         }
  *    ]
  */
+
 chefsRouter.get('/', chefController.getChefs)
 
 /**
@@ -110,7 +112,7 @@ chefsRouter.get('/:id', chefController.getChefByid)
         }
  */
 
-chefsRouter.post('/', chefController.addChef)
+chefsRouter.post('/',authMiddleware,chefController.addChef)
 
 /**
  * @api {put} /chefs/:id Update a chef
@@ -137,7 +139,7 @@ chefsRouter.post('/', chefController.addChef)
         }
  */
 
-chefsRouter.put('/:id', chefController.updateChef)
+chefsRouter.put('/:id',authMiddleware, chefController.updateChef)
 
 /**
  * @api {delete} /chefs/:id Remove a chef
@@ -162,7 +164,7 @@ chefsRouter.put('/:id', chefController.updateChef)
             "__v": 0
         }
  */
-chefsRouter.delete('/:id', chefController.removeChef)
+chefsRouter.delete('/:id',authMiddleware, chefController.removeChef)
 
 
 export default chefsRouter

@@ -9,7 +9,6 @@ const getAllChefs = async () => {
         return chefs.map(chef => {
             const chefObj = chef.toObject()
             delete chefObj.__v
-            console.log(chefObj)
             return chefObj
         });
     } catch (err) {
