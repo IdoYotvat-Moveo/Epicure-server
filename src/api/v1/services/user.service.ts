@@ -10,6 +10,8 @@ interface ILoginResponse {
 }
 
 const saltRounds = 10
+
+require('dotenv').config()
 const secretKey = process.env.JWT_SECRET
 const cryptoSecretKey = process.env.CRYPTO_KEY
 

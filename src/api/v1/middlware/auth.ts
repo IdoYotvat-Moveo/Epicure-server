@@ -1,7 +1,11 @@
 import { Request, Response, NextFunction } from 'express'
-import jwt from 'jsonwebtoken'
+import jwt, { JwtPayload } from 'jsonwebtoken'
 
-const secretKey = process.env.JWT_SECRET || "SECRET-SECRET-KEY"
+require('dotenv').config()
+const secretKey = process.env.JWT_SECRET
+if (!secretKey) {
+    throw new Error('Missing JWT_SECRET environment variable');
+}
 
 interface DecodedToken {
     id: string
@@ -24,10 +28,12 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
         }
 
         // Verify the token
-        const decodedToken = jwt.verify(token, secretKey) as DecodedToken
+        const decodedToken = jwt.verify(token, secretKey) as DecodedToken | JwtPayload
         if (!decodedToken) {
-            throw 'Problem with token'
-        } else {
+            throw new Error('Problem with token')
+        } else if (decodedToken.role !== 'admin') {
+            return res.status(401).json({ error: 'Authorization user' })
+        }else {
             next()
         }
     } catch (error) {
