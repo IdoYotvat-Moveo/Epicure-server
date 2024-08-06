@@ -10,9 +10,16 @@ interface ILoginResponse {
 }
 
 const saltRounds = 10
-const secretKey = process.env.JWT_SECRET || "SECRET-SECRET-KEY"
-const cryptoSecretKey = process.env.CRYPTO_KEY || 'your-secret-key'
+const secretKey = process.env.JWT_SECRET
+const cryptoSecretKey = process.env.CRYPTO_KEY
 
+if (!secretKey) {
+    throw new Error('Missing JWT_SECRET environment variable')
+}
+
+if (!cryptoSecretKey) {
+    throw new Error('Missing CRYPTO_KEY environment variable')
+}
 
 const getAllUsers = async () => {
     try {

@@ -74,8 +74,6 @@ const dishesData = [
   }
 ]
 
-// Fixing missing fields and adjusting references
-
 
 
 
