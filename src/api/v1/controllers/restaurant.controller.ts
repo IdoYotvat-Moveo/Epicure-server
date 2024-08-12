@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { restaurantService } from "../services/restaurant.service";
+import { Request, Response } from "express"
+import { restaurantService } from "../services/restaurant.service"
 
 
 export const getRestaurants = async (req: Request, res: Response) => {
@@ -32,7 +32,6 @@ export const getResaurantById = async (req: Request, res: Response) => {
 
 export const addRestaurant = async (req: Request, res: Response) => {
     try {
-        console.log(req.body)
         const restaurant = await restaurantService.addRestaurant(req.body)
         res.status(201).send(restaurant)
     } catch (err) {

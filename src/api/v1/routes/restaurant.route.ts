@@ -1,5 +1,6 @@
-import { Router } from "express";
+import { Router } from "express"
 import * as restaurantController from '../controllers/restaurant.controller'
+import authMiddleware from "../middlware/auth"
 
 const restaurantRouter = Router()
 
@@ -122,7 +123,7 @@ restaurantRouter.get('/:id', restaurantController.getResaurantById)
         "__v": 0
     }
  */
-restaurantRouter.post('/', restaurantController.addRestaurant)
+restaurantRouter.post('/',authMiddleware, restaurantController.addRestaurant)
 
 /**
  * @api {put} /restaurants/:id Update a restaurant
@@ -149,7 +150,7 @@ restaurantRouter.post('/', restaurantController.addRestaurant)
         "__v": 0
     }
  */
-restaurantRouter.put('/:id', restaurantController.updateRestaurant)
+restaurantRouter.put('/:id',authMiddleware, restaurantController.updateRestaurant)
 
 /**
  * @api {delete} /restaurants/:id Remove a restaurant
@@ -175,7 +176,7 @@ restaurantRouter.put('/:id', restaurantController.updateRestaurant)
         "__v": 0
     }
  */
-restaurantRouter.delete('/:id', restaurantController.removeRestaurant)
+restaurantRouter.delete('/:id',authMiddleware, restaurantController.removeRestaurant)
 
 
 export default restaurantRouter

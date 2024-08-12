@@ -1,4 +1,4 @@
-import { Types } from "mongoose";
+import { Types } from "mongoose"
 import { Dish, IDish } from "../../../models/dish.model"
 import { Restaurant } from "../../../models/restaurant.model"
 

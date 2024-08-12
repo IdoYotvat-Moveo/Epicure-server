@@ -9,12 +9,11 @@ const getAllChefs = async () => {
         return chefs.map(chef => {
             const chefObj = chef.toObject()
             delete chefObj.__v
-            console.log(chefObj)
             return chefObj
-        });
+        })
     } catch (err) {
-        console.log('chef service => error getting chefs');
-        throw err;
+        console.log('chef service => error getting chefs')
+        throw err
     }
 }
 
@@ -50,9 +49,9 @@ const addChef = async (chefData: Partial<IChef>) => {
         return chefObj
     } catch (err) {
         console.log('chef service => error adding chef')
-        throw err;
+        throw err
     }
-};
+}
 
 const updateChef = async (chefId: string, updateData: Partial<IChef>) => {
     try {

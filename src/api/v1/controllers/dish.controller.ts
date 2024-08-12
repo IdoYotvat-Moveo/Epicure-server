@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { dishService } from "../services/dish.service";
+import { Request, Response } from "express"
+import { dishService } from "../services/dish.service"
 
 
 export const getAllDishes = async (req: Request, res: Response) => {

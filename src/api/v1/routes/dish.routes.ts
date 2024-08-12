@@ -1,5 +1,6 @@
-import { Router } from "express";
+import { Router } from "express"
 import * as dishController from '../controllers/dish.controller'
+import authMiddleware from "../middlware/auth"
 
 const dishRouter = Router()
 
@@ -176,7 +177,7 @@ dishRouter.get('/:id', dishController.getDishById)
  *       "error": "RestaurantNotFound"
  *     }
  */
-dishRouter.post('/', dishController.addDish)
+dishRouter.post('/',authMiddleware, dishController.addDish)
 
 /**
  * @api {put} /dish/:id Update a dish
@@ -209,7 +210,7 @@ dishRouter.post('/', dishController.addDish)
         "__v": 0
     }
  */
-dishRouter.put('/:id', dishController.updateDish)
+dishRouter.put('/:id',authMiddleware, dishController.updateDish)
 
 /**
  * @api {delete} /dish/:id Remove a dish
@@ -248,7 +249,7 @@ dishRouter.put('/:id', dishController.updateDish)
         "__v": 0
     }
  */
-dishRouter.delete('/:id', dishController.removeDish)
+dishRouter.delete('/:id',authMiddleware, dishController.removeDish)
 
 
 export default dishRouter
