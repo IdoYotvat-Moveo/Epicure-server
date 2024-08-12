@@ -3,6 +3,7 @@
 		{
 			"name": "Epicure",
 			"script": "./src/server.ts",
+			"interpreter": "node",
 			"env": {
 				 "NODE_ENV": "development"
 			}
