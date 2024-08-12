@@ -29,14 +29,14 @@ if (process.env.NODE_ENV === 'production') {
   }
   app.use(cors(corsOptions))
 }
-// app.get('/**', (req: Request, res: Response) => {
-//   res.sendFile(path.resolve('public/index.html'))
-// })
+app.get('/**', (req: Request, res: Response) => {
+  res.sendFile(path.resolve('Epicure/build/index.html'))
+})
 
 app.use('/api',apiRouter)
 
 const port = process.env.PORT || 3030
-mongoose.connect('mongodb://localhost:27017/Epicure').then(() => {
+mongoose.connect(process.env.MONGO_URL||'mongodb://localhost:27017/Epicure').then(() => {
   console.log('db connected')
   server.listen(port, () => {
     console.log('Server is running on port: ' + port)
