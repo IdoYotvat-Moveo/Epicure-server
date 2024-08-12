@@ -1,0 +1,28 @@
+{
+	"apps": [
+		{
+			"name": "Epicure",
+			"script": "./server.ts",
+			"env": {
+				 "NODE_ENV": "development"
+			}
+		}
+	],
+	"deploy": {
+		"staging": {
+			"key": "/Users/idoyotvat/Desktop/aws-epicure/Epicure-key.pem",
+			"user": "ubuntu",
+			"host": ["ec2-16-171-153-14.eu-north-1.compute.amazonaws.com"],
+			"ref": "origin/dev",
+			"repo": "git@github.com:IdoYotvat-Moveo/Epicure-server.git",
+			"path": "/home/ubuntu/Epicure-project",
+			"ssh_options": "StrictHostKeyChecking=no",
+			"post-deploy": "mkdir -p logs && npm i && pm2 reload ecosystem.json --env staging",
+			"pre-deploy-local": "echo 'Deploying code to servers'",
+			"env": {
+				"NODE_ENV": "staging"
+			}
+		}
+	}
+}
+
