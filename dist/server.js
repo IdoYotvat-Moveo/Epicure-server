@@ -52,6 +52,7 @@ else {
             'http://127.0.0.1:5174',
             'http://localhost:5174',
             'https://16.171.153.14',
+            'http://16.171.153.14',
         ],
         credentials: true,
     };
