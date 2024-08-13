@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser'
 import mongoose from 'mongoose'
 import apiRouter from './api/v1'
 import * as dotenv from 'dotenv';
-dotenv.config({path:'/home/ubuntu/Epicure-project/source/dist/.env'})
+dotenv.config({path:'/home/ubuntu/Epicure-project/source/.env'})
 
 
 const app = express()

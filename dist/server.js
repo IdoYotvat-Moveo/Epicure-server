@@ -34,7 +34,7 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const v1_1 = __importDefault(require("./api/v1"));
 const dotenv = __importStar(require("dotenv"));
-dotenv.config({ path: '/home/ubuntu/Epicure-project/source/dist/.env' });
+dotenv.config({ path: '/home/ubuntu/Epicure-project/source/.env' });
 const app = (0, express_1.default)();
 const server = http.createServer(app);
 app.use((0, cookie_parser_1.default)());
