@@ -2,7 +2,7 @@
 	"apps": [
 		{
 			"name": "Epicure",
-			"script": "/home/ubuntu/Epicure-project/current/dist/server.js",
+			"script": "/home/ubuntu/Epicure-project/source/dist/server.js",
 			"interpreter": "node",
 			"env": {
 				 "NODE_ENV": "development"
