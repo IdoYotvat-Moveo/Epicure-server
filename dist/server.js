@@ -39,7 +39,7 @@ const app = (0, express_1.default)();
 const server = http.createServer(app);
 app.use((0, cookie_parser_1.default)());
 app.use(express_1.default.json());
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
     app.use(express_1.default.static(path.resolve('public')));
 }
 const corsOptions = {

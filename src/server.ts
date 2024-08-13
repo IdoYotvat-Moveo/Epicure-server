@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser'
 import mongoose from 'mongoose'
 import apiRouter from './api/v1'
 import * as dotenv from 'dotenv';
-dotenv.config({path:'/home/ubuntu/Epicure-project/source/.env'})
+dotenv.config({ path: '/home/ubuntu/Epicure-project/source/.env' })
 
 
 const app = express()
@@ -15,7 +15,7 @@ const server = http.createServer(app)
 app.use(cookieParser())
 app.use(express.json())
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production'||process.env.NODE_ENV === 'staging') {
   app.use(express.static(path.resolve('public')))
 }
 const corsOptions: cors.CorsOptions = {
@@ -33,17 +33,17 @@ const corsOptions: cors.CorsOptions = {
 }
 app.use(cors(corsOptions))
 
-app.use('/api',apiRouter)
+app.use('/api', apiRouter)
 app.get('/**', (req: Request, res: Response) => {
   res.sendFile(path.resolve('Epicure/build/index.html'))
 })
 
 const port = process.env.PORT || 3030
-mongoose.connect(process.env.MONGO_URL||'mongodb://localhost:27017/Epicure').then(() => {
+mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost:27017/Epicure').then(() => {
   console.log('db connected')
   server.listen(port, () => {
     console.log('Server is running on port: ' + port)
   })
-}).catch(error=>{console.log('had issues connecting to db',error)})
+}).catch(error => { console.log('had issues connecting to db', error) })
 
 
