@@ -5,6 +5,8 @@ import express, { Request, Response } from 'express'
 import cookieParser from 'cookie-parser'
 import mongoose from 'mongoose'
 import apiRouter from './api/v1'
+import * as dotenv from 'dotenv';
+dotenv.config()
 
 
 const app = express()
