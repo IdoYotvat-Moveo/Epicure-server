@@ -42,22 +42,20 @@ app.use(express_1.default.json());
 if (process.env.NODE_ENV === 'production') {
     app.use(express_1.default.static(path.resolve('public')));
 }
-else {
-    const corsOptions = {
-        origin: [
-            'http://127.0.0.1:3000',
-            'http://localhost:3000',
-            'http://127.0.0.1:5173',
-            'http://localhost:5173',
-            'http://127.0.0.1:5174',
-            'http://localhost:5174',
-            'https://16.171.153.14',
-            'http://16.171.153.14',
-        ],
-        credentials: true,
-    };
-    app.use((0, cors_1.default)(corsOptions));
-}
+const corsOptions = {
+    origin: [
+        'http://127.0.0.1:3000',
+        'http://localhost:3000',
+        'http://127.0.0.1:5173',
+        'http://localhost:5173',
+        'http://127.0.0.1:5174',
+        'http://localhost:5174',
+        'https://16.171.153.14',
+        'http://16.171.153.14',
+    ],
+    credentials: true,
+};
+app.use((0, cors_1.default)(corsOptions));
 app.use('/api', v1_1.default);
 app.get('/**', (req, res) => {
     res.sendFile(path.resolve('Epicure/build/index.html'));
