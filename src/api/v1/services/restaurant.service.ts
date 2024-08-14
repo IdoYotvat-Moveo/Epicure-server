@@ -72,9 +72,14 @@ const addRestaurant = async (restaurantData: Partial<IRestaurant>) => {
 const updateRestaurant = async (restaurantId: string, updateData: Partial<IRestaurant>) => {
     try {
         if (updateData.chef) {
-            await Chef.findByIdAndUpdate(updateData.chef, { $push: { restaurants: restaurantId } })
+            await Chef.findByIdAndUpdate(updateData.chef, {
+                $addToSet: { restaurants: restaurantId } 
+            })
         }
-        const updatedRestaurant = await Restaurant.findByIdAndUpdate(restaurantId, updateData, { new: true, runValidators: true })
+        const updatedRestaurant = await Restaurant.findByIdAndUpdate(restaurantId, updateData, {
+            new: true,
+            runValidators: true
+        })
         if (!updatedRestaurant) {
             throw new Error('Restaurant not found')
         }
@@ -82,10 +87,11 @@ const updateRestaurant = async (restaurantId: string, updateData: Partial<IResta
         delete restaurantObj.__v
         return restaurantObj
     } catch (err) {
-        console.log('restaurant service => error updating a restaurant')
+        console.log('restaurant service => error updating a restaurant', err)
         throw err
     }
-}
+};
+
 
 const removeRestaurant = async (restaurantId: string) => {
     try {
